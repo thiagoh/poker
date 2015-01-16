@@ -13,8 +13,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.thiagoh.poker.controller.GameController;
 import com.thiagoh.poker.execution.Card;
-import com.thiagoh.poker.execution.Face;
-import com.thiagoh.poker.execution.GameExecution;
 import com.thiagoh.poker.execution.GameState;
 import com.thiagoh.poker.execution.Hand;
 import com.thiagoh.poker.execution.TableCardsState;
