@@ -1,4 +1,4 @@
-package com.thiagoh.poker.model;
+package com.thiagoh.poker.execution;
 
 public enum Face {
 

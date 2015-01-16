@@ -6,18 +6,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = { "/poker" })
-public class PokerController {
+@RequestMapping(value = { "/main" })
+public class MainController {
 
-	private final static org.slf4j.Logger log = LoggerFactory.getLogger(PokerController.class);
+	private final static org.slf4j.Logger log = LoggerFactory.getLogger(MainController.class);
 
-	private final static String MAPPING_PREFIX = "poker/";
+	private final static String MAPPING_PREFIX = "main/";
 
-	@RequestMapping(value = { "" })
-	public String index(Model model) {
-
-		return _list(model);
-	}
+	/*
+	 * http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html
+	 */
 
 	@RequestMapping(value = { "/list" })
 	public String list(Model model) {

@@ -1,44 +1,89 @@
 package com.thiagoh.poker.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "game_player")
 public class GamePlayer {
 
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	@ManyToOne
+	@JoinColumn(name = "playerId")
 	private Player player;
+
+	@ManyToOne
+	@JoinColumn(name = "gameModelId")
 	private Game game;
-	private Hand hand;
+
+	private String cardFace1;
+	private String cardSuit1;
+
+	private String cardFace2;
+	private String cardSuit2;
+
 	private boolean hasCards;
-	private GamePlayerState state;
+	private String state;
 
-	public GamePlayer(Game game, Player player) {
+	public GamePlayer() {
 
-		this.game = game;
-		this.player = player;
-		this.hand = null;
-		this.hasCards = false;
-		this.state = GamePlayerState.READY;
 	}
 
-	public GamePlayer(Game game, Player player, Hand hand) {
+	public Long getId() {
 
-		this.game = game;
-		this.player = player;
-		this.hand = hand;
-		this.hasCards = true;
-		this.state = GamePlayerState.READY;
+		return id;
 	}
 
-	public void fold() {
+	public void setId(Long id) {
 
-		this.state = GamePlayerState.OUT;
+		this.id = id;
 	}
 
-	public Hand getHand() {
+	public String getCardFace1() {
 
-		return hand;
+		return cardFace1;
 	}
 
-	public void setHand(Hand hand) {
+	public void setCardFace1(String cardFace1) {
 
-		this.hand = hand;
+		this.cardFace1 = cardFace1;
+	}
+
+	public String getCardSuit1() {
+
+		return cardSuit1;
+	}
+
+	public void setCardSuit1(String cardSuit1) {
+
+		this.cardSuit1 = cardSuit1;
+	}
+
+	public String getCardFace2() {
+
+		return cardFace2;
+	}
+
+	public void setCardFace2(String cardFace2) {
+
+		this.cardFace2 = cardFace2;
+	}
+
+	public String getCardSuit2() {
+
+		return cardSuit2;
+	}
+
+	public void setCardSuit2(String cardSuit2) {
+
+		this.cardSuit2 = cardSuit2;
 	}
 
 	public Player getPlayer() {
@@ -71,48 +116,14 @@ public class GamePlayer {
 		this.hasCards = hasCards;
 	}
 
-	public boolean isPlaying() {
+	public String getState() {
 
-		return state == GamePlayerState.GAMING;
+		return state;
 	}
 
-	@Override
-	public int hashCode() {
+	public void setState(String state) {
 
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((game == null) ? 0 : game.hashCode());
-		result = prime * result + ((player == null) ? 0 : player.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		GamePlayer other = (GamePlayer) obj;
-		if (game == null) {
-			if (other.game != null)
-				return false;
-		} else if (!game.equals(other.game))
-			return false;
-		if (player == null) {
-			if (other.player != null)
-				return false;
-		} else if (!player.equals(other.player))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-
-		return player + " with " + hand;
+		this.state = state;
 	}
 
 }

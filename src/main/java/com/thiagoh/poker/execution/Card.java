@@ -1,4 +1,4 @@
-package com.thiagoh.poker.model;
+package com.thiagoh.poker.execution;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,36 +13,36 @@ public class Card {
 	@GeneratedValue
 	private Long id;
 
-	private String face;
-	private String suit;
+	private Face face;
+	private Suit suit;
 
 	public Card() {
 
 	}
 
-	public Card(String face, String suit) {
+	public Card(Face face, Suit suit) {
 
 		super();
 		this.face = face;
 		this.suit = suit;
 	}
 
-	public String getFace() {
+	public Face getFace() {
 
 		return face;
 	}
 
-	public void setFace(String face) {
+	public void setFace(Face face) {
 
 		this.face = face;
 	}
 
-	public String getSuit() {
+	public Suit getSuit() {
 
 		return suit;
 	}
 
-	public void setSuit(String suit) {
+	public void setSuit(Suit suit) {
 
 		this.suit = suit;
 	}

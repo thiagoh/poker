@@ -5,7 +5,7 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.thiagoh.poker.model.Card;
+import com.thiagoh.poker.execution.Card;
 import com.thiagoh.poker.util.PokerUtils;
 
 public class PokerUtilsTest {

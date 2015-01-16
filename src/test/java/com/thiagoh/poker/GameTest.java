@@ -7,11 +7,11 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.thiagoh.poker.model.Card;
-import com.thiagoh.poker.model.Game;
-import com.thiagoh.poker.model.GamePlayer;
+import com.thiagoh.poker.execution.Card;
+import com.thiagoh.poker.execution.GameExecution;
+import com.thiagoh.poker.execution.GamePlayer;
+import com.thiagoh.poker.execution.TableCardsState;
 import com.thiagoh.poker.model.Player;
-import com.thiagoh.poker.model.TableCardsState;
 
 public class GameTest {
 
@@ -20,7 +20,7 @@ public class GameTest {
 
 		System.out.println();
 
-		Game game = Game.createNewGame();
+		GameExecution game = GameExecution.createNewGame();
 
 		Player p1 = new Player("paulo@thiagoh.com", "paulo leite");
 		Player p2 = new Player("antonio@thiagoh.com", "antonio carlos");
@@ -60,7 +60,7 @@ public class GameTest {
 
 		System.out.println();
 
-		Game game = Game.createNewGame();
+		GameExecution game = GameExecution.createNewGame();
 
 		Player p1 = new Player("paulo@thiagoh.com", "paulo leite");
 		Player p2 = new Player("antonio@thiagoh.com", "antonio carlos");
@@ -101,7 +101,7 @@ public class GameTest {
 
 		System.out.println();
 
-		Game game = Game.createNewGame();
+		GameExecution game = GameExecution.createNewGame();
 
 		List<Player> players = new ArrayList<Player>();
 

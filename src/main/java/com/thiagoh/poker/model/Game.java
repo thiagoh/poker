@@ -1,305 +1,125 @@
 package com.thiagoh.poker.model;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
-import com.thiagoh.poker.util.PokerUtils;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "game")
 public class Game {
 
-	private Set<Player> _players;
-	private Map<Player, GamePlayer> _gamePlayersMap;
-	private Card[] _tableCards;
-	private Set<Card> _availableCards;
-	private Set<Card> _outCards;
-	private GameState _state;
-	private TableCardsState _tableCardsState;
+	@Id
+	@GeneratedValue
+	private Long id;
 
-	private Game() {
+	@OneToMany(mappedBy = "game")
+	private Set<GamePlayer> gamePlayers;
 
-		_players = new HashSet<Player>();
-		_gamePlayersMap = new HashMap<>();
+	private Card tableCard1;
+	private Card tableCard2;
+	private Card tableCard3;
+	private Card tableCard4;
+	private Card tableCard5;
 
-		_tableCards = new Card[5];
-		_availableCards = PokerUtils.getPack();
-		_outCards = new HashSet<Card>();
-		_state = GameState.PRE_GAME;
+	private String state;
+	private String tableCardsState;
+
+	public Game() {
+
 	}
 
-	public static Game createNewGame() {
+	public Long getId() {
 
-		return new Game();
+		return id;
 	}
 
-	public void start() {
+	public void setId(Long id) {
 
-		if (_state == GameState.FINISHED) {
-			throw new RuntimeException("This game is over");
-		}
-
-		if (_state == GameState.STARTED) {
-			throw new RuntimeException("This game is already started");
-		}
-
-		if (_players.size() < 2) {
-			throw new RuntimeException("Game cannot start with less than two players");
-		}
-
-		_state = GameState.STARTED;
-
-		_distributeCards();
+		this.id = id;
 	}
 
-	public void join(Player... players) {
+	public Set<GamePlayer> getGamePlayers() {
 
-		for (Player player : players) {
-			_join(player);
-		}
+		return gamePlayers;
 	}
 
-	public void join(Collection<Player> players) {
+	public void setGamePlayers(Set<GamePlayer> gamePlayers) {
 
-		for (Player player : players) {
-			_join(player);
-		}
+		this.gamePlayers = gamePlayers;
 	}
 
-	public void join(Player player) {
+	public Card getTableCard1() {
 
-		_join(player);
+		return tableCard1;
 	}
 
-	private void _join(Player player) {
+	public void setTableCard1(Card tableCard1) {
 
-		if (_state != GameState.PRE_GAME) {
-			throw new RuntimeException("Cannot add player to this game");
-		}
-
-		if (player == null) {
-			throw new NullPointerException("Player cannot be null");
-		}
-
-		if (isInGame(player)) {
-			return;
-		}
-
-		_players.add(player);
-		_gamePlayersMap.put(player, null);
+		this.tableCard1 = tableCard1;
 	}
 
-	public boolean isInGame(Player player) {
+	public Card getTableCard2() {
 
-		return _players.contains(player);
+		return tableCard2;
 	}
 
-	public boolean isPlaying(Player player) {
+	public void setTableCard2(Card tableCard2) {
 
-		if (!isInGame(player)) {
-			return false;
-		}
-
-		GamePlayer gamePlayer = _gamePlayersMap.get(player);
-
-		if (gamePlayer == null) {
-			return false;
-		}
-
-		return gamePlayer.isPlaying();
+		this.tableCard2 = tableCard2;
 	}
 
-	public GamePlayer getGamePlayer(Player player) {
+	public Card getTableCard3() {
 
-		if (!isInGame(player)) {
-			return null;
-		}
-
-		GamePlayer gamePlayer = _gamePlayersMap.get(player);
-
-		return gamePlayer;
+		return tableCard3;
 	}
 
-	public void distributeCards() {
+	public void setTableCard3(Card tableCard3) {
 
-		_distributeCards();
+		this.tableCard3 = tableCard3;
 	}
 
-	public void redistributeCards() {
+	public Card getTableCard4() {
 
-		_distributeCards();
+		return tableCard4;
 	}
 
-	private synchronized void _distributeCards() {
+	public void setTableCard4(Card tableCard4) {
 
-		if (_state != GameState.STARTED) {
-			throw new RuntimeException("This game is not started");
-		}
-
-		for (Player player : _players) {
-
-			distributeCardsToPlayer(player);
-		}
-
-		_tableCardsState = TableCardsState.PRE_FLOP;
+		this.tableCard4 = tableCard4;
 	}
 
-	public void fold(Player player) {
+	public Card getTableCard5() {
 
-		if (player == null) {
-			throw new NullPointerException("Player cannot be null");
-		}
-
-		if (_state != GameState.STARTED) {
-			throw new RuntimeException("This game is not started");
-		}
-
-		if (!isInGame(player)) {
-			throw new RuntimeException("Player is not present on this game");
-		}
-
-		GamePlayer gamePlayer = _gamePlayersMap.get(player);
-
-		if (gamePlayer == null) {
-			throw new RuntimeException("Player is not present on this game");
-		}
-
-		if (!gamePlayer.isPlaying()) {
-			throw new RuntimeException("Player is out of this game");
-		}
-
-		gamePlayer.fold();
+		return tableCard5;
 	}
 
-	private void distributeCardsToPlayer(Player player) {
+	public void setTableCard5(Card tableCard5) {
 
-		if (player == null) {
-			throw new NullPointerException("Player cannot be null");
-		}
-
-		if (!isInGame(player)) {
-			throw new RuntimeException("Player is not present on this game");
-		}
-
-		Card randomCard1 = _retrieveRandomCard();
-		Card randomCard2 = _retrieveRandomCard();
-
-		Hand hand = new Hand(randomCard1, randomCard2);
-
-		GamePlayer gamePlayer = new GamePlayer(this, player, hand);
-
-		_gamePlayersMap.put(player, gamePlayer);
+		this.tableCard5 = tableCard5;
 	}
 
-	private Card _retrieveRandomCard() {
+	public String getState() {
 
-		Set<Card> availableCards = getAvailableCards();
-
-		Card randomCard = PokerUtils.random(availableCards);
-
-		if (!_availableCards.contains(randomCard)) {
-			throw new RuntimeException("The card is not available");
-		}
-
-		availableCards.remove(randomCard);
-
-		return randomCard;
+		return state;
 	}
 
-	public Card[] dropCards() {
+	public void setState(String state) {
 
-		if (_state != GameState.STARTED) {
-			throw new RuntimeException("This game is not started");
-		}
-
-		if (_tableCardsState == TableCardsState.PRE_FLOP) {
-
-			_flop();
-
-			return getFlop();
-
-		} else if (_tableCardsState == TableCardsState.FLOP) {
-
-			_turn();
-			return new Card[] { getTurn() };
-
-		} else if (_tableCardsState == TableCardsState.TURN) {
-
-			_river();
-			return new Card[] { getRiver() };
-		}
-
-		throw new RuntimeException("This step is not valid");
+		this.state = state;
 	}
 
-	public TableCardsState getTableCardsState() {
+	public String getTableCardsState() {
 
-		if (_state != GameState.STARTED) {
-			throw new RuntimeException("This game is not started");
-		}
-
-		return _tableCardsState;
+		return tableCardsState;
 	}
 
-	public Card[] getTableCards() {
+	public void setTableCardsState(String tableCardsState) {
 
-		return _tableCards;
+		this.tableCardsState = tableCardsState;
 	}
 
-	public Card[] getFlop() {
-
-		return new Card[] { _tableCards[0], _tableCards[1], _tableCards[2] };
-	}
-
-	private void _flop() {
-
-		_tableCards[0] = _retrieveRandomCard();
-		_tableCards[1] = _retrieveRandomCard();
-		_tableCards[2] = _retrieveRandomCard();
-
-		_tableCardsState = TableCardsState.FLOP;
-	}
-
-	public Card getTurn() {
-
-		return _tableCards[3];
-	}
-
-	private void _turn() {
-
-		_tableCards[3] = _retrieveRandomCard();
-
-		_tableCardsState = TableCardsState.TURN;
-	}
-
-	public Card getRiver() {
-
-		return _tableCards[4];
-	}
-
-	private void _river() {
-
-		_tableCards[4] = _retrieveRandomCard();
-
-		_tableCardsState = TableCardsState.RIVER;
-	}
-
-	private Set<Card> getAvailableCards() {
-
-		return _availableCards;
-	}
-
-	public Set<Player> getPlayers() {
-
-		return _players;
-	}
-
-	public int countPlayers() {
-
-		if (_players == null)
-			return 0;
-
-		return _players.size();
-	}
 }

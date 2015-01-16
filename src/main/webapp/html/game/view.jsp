@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Poker Games!</h2>
+<h2>Poker Game!</h2>
 </body>
 </html>
