@@ -12,6 +12,7 @@ public abstract class BaseModel {
 		this._new = isNew;
 	}
 	
+	public abstract long getId();
 	
 	
 }

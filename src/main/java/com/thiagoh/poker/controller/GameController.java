@@ -21,7 +21,7 @@ public class GameController extends BaseController {
 
 	@Autowired
 	protected GamePlayerController gamePlayerController;
-	
+
 	@Autowired
 	protected CardController cardController;
 
@@ -52,7 +52,6 @@ public class GameController extends BaseController {
 
 			game = gameDao.create();
 
-
 		} else {
 
 			game = gameDao.get(gameId);
@@ -75,7 +74,7 @@ public class GameController extends BaseController {
 
 		Set<GamePlayer> gamePlayers = new HashSet<GamePlayer>();
 
-		if (!game.isNew()){
+		if (!game.isNew()) {
 			gamePlayerController.deleteByGameId(gameId);
 		}
 
@@ -97,5 +96,41 @@ public class GameController extends BaseController {
 	public Game get(long gameId) throws PortalException, SystemException {
 
 		return gameDao.get(gameId);
+	}
+	
+	public Game fetch(long gameId) throws SystemException {
+		
+		return gameDao.fetch(gameId);
+	}
+
+	public void delete(Game game) throws SystemException {
+
+		List<GamePlayer> gamePlayers = gamePlayerDao.findByGameId(game.getId());
+		
+		for (GamePlayer gamePlayer : gamePlayers) {
+			
+			gamePlayerController.delete(gamePlayer);
+		}
+	}
+
+	public void delete(long gameId) throws SystemException {
+
+		Game game = gameDao.fetch(gameId);
+
+		if (game == null) {
+			return;
+		}
+
+		delete(game);
+	}
+
+	public List<Game> findAll() throws SystemException {
+
+		return gameDao.findAll();
+	}
+
+	public long countAll() throws SystemException {
+
+		return gameDao.countAll();
 	}
 }

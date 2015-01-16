@@ -7,17 +7,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "card_")
+@Table(name = "card")
 public class Card extends BaseModel {
 
 	@Id
 	@GeneratedValue
 	private Long id;
 
-	@Column(name="face")
+	@Column(name = "face")
 	private String face;
-	
-	@Column(name="suit")
+
+	@Column(name = "suit")
 	private String suit;
 
 	public Card() {
@@ -49,6 +49,14 @@ public class Card extends BaseModel {
 	public void setSuit(String suit) {
 
 		this.suit = suit;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@Override

@@ -25,9 +25,9 @@ public class GamePlayerDao extends BaseDao<GamePlayer> {
 
 			session = openSession();
 
-			Query query = session.createQuery("select gp from " + GamePlayer.class.getName() + " gp where gp.gameId = ?");
+			Query query = session.createQuery("select gp from " + GamePlayer.class.getName() + " gp where gp.game.id = :gameId ");
 
-			query.setLong(1, gameId);
+			query.setLong("gameId", gameId);
 
 			query.setMaxResults(1);
 
@@ -42,6 +42,32 @@ public class GamePlayerDao extends BaseDao<GamePlayer> {
 
 			closeSession();
 		}
-
+	}
+	
+	public List<GamePlayer> findByPlayerId(long playerId) throws SystemException {
+		
+		Session session = null;
+		
+		try {
+			
+			session = openSession();
+			
+			Query query = session.createQuery("select gp from " + GamePlayer.class.getName() + " gp where gp.player.id = :playerId ");
+			
+			query.setLong("playerId", playerId);
+			
+			query.setMaxResults(1);
+			
+			@SuppressWarnings("unchecked")
+			List<GamePlayer> list = query.list();
+			
+			return list;
+			
+		} catch (Exception e) {
+			throw new SystemException(e);
+		} finally {
+			
+			closeSession();
+		}
 	}
 }

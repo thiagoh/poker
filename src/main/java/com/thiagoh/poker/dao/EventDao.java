@@ -2,28 +2,26 @@ package com.thiagoh.poker.dao;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.thiagoh.poker.PortalException;
 import com.thiagoh.poker.SystemException;
-import com.thiagoh.poker.model.Card;
+import com.thiagoh.poker.model.Event;
 
 @Repository
-public class CardDao extends BaseDao<Card> {
+public class EventDao extends BaseDao<Event> {
 
 	@Override
-	public Class<Card> getClazz() {
-		return Card.class;
+	public Class<Event> getClazz() {
+		return Event.class;
 	}
 
 	@SuppressWarnings("unchecked")
-	public Card get(String face, String suit) throws PortalException, SystemException {
+	public Event get(String name) throws PortalException, SystemException {
 
-		Card card = fetch(face, suit);
+		Event card = fetch(name);
 
 		if (card == null) {
 
@@ -36,7 +34,7 @@ public class CardDao extends BaseDao<Card> {
 				Class<? extends PortalException> clazz = (Class<? extends PortalException>) Class
 						.forName("com.thiagoh.poker.NoSuch" + simpleName + "Exception");
 
-				String message = "No such " + simpleName + " with face = " + face + " and suit = " + suit;
+				String message = "No such " + simpleName + " with name = " + name ;
 
 				pe = clazz.getConstructor(String.class).newInstance(message);
 
@@ -51,7 +49,7 @@ public class CardDao extends BaseDao<Card> {
 		return card;
 	}
 
-	public Card fetch(String face, String suit) throws SystemException {
+	public Event fetch(String name) throws SystemException {
 
 		Session session = null;
 
@@ -59,15 +57,21 @@ public class CardDao extends BaseDao<Card> {
 
 			session = openSession();
 
-			Query query = session.createQuery("FROM " + Card.class.getName()
-					+ " c WHERE c.face = :face AND c.suit = :suit ");
+			Query query = session.createQuery("FROM " + Event.class.getName()
+					+ " c WHERE c.name = :name");
 
-			query.setString("face", face);
-			query.setString("suit", suit);
+			query.setString("name", name);
 
 			query.setMaxResults(1);
 
-			return (Card) query.uniqueResult();
+			@SuppressWarnings("unchecked")
+			List<Event> list = query.list();
+
+			if (list.isEmpty()) {
+				return null;
+			}
+
+			return list.get(0);
 
 		} catch (Exception e) {
 			throw new SystemException(e);

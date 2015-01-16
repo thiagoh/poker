@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,42 +29,14 @@ import com.thiagoh.poker.util.PokerUtils;
 // "/applicationContext-test.xml"
 // in the root of the classpath
 @ContextConfiguration(locations = { "/applicationContext.xml" })
-public class GameControllerTest {
+@Ignore
+public class GamePlayerControllerTest {
 
 	@Autowired
 	protected PlayerController playerController;
 
 	@Autowired
 	protected GameController gameController;
-	
-
-	@Before
-	public void setup() {
-
-		deleteAll();
-	}
-
-	@After
-	public void tearDown() {
-
-		deleteAll();
-	}
-
-	private void deleteAll() {
-
-		try {
-
-			List<Game> list = gameController.findAll();
-
-			for (Game game : list) {
-				gameController.delete(game);
-			}
-
-		} catch (SystemException e) {
-			e.printStackTrace();
-			Assert.fail(e.getMessage());
-		}
-	}
 
 	@Test
 	public void testGame1() {
