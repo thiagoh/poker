@@ -1,13 +1,15 @@
-package com.thiagoh.poker.dao.util;
+package com.thiagoh.poker.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.thiagoh.poker.PortalException;
 import com.thiagoh.poker.SystemException;
 import com.thiagoh.poker.model.BaseModel;
 
+@Repository
 public abstract class BaseDao<T extends BaseModel> {
 
 	@Autowired

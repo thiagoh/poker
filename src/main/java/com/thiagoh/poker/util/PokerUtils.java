@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.thiagoh.poker.execution.Card;
 import com.thiagoh.poker.execution.Face;
+import com.thiagoh.poker.execution.Hand;
 import com.thiagoh.poker.execution.Suit;
 
 public class PokerUtils {
@@ -16,10 +17,18 @@ public class PokerUtils {
 
 	public static Card randomFromPack() {
 
-		return random(getPack());
+		return randomCard(getPack());
 	}
 
-	public static Card random(Set<Card> availableCards) {
+	public static Hand randomHand(Set<Card> availableCards) {
+		
+		Card random1 = randomCard(availableCards);
+		Card random2 = randomCard(availableCards);
+		
+		return new Hand(random1, random2);
+	}
+	
+	public static Card randomCard(Set<Card> availableCards) {
 
 		Random random = new Random(System.currentTimeMillis() * INITIAL_SEED);
 
@@ -30,6 +39,8 @@ public class PokerUtils {
 
 		for (int i = 0; i <= nextInt; i++, card = iterator.next())
 			;
+		
+		iterator.remove();
 
 		if (card == null)
 			System.out.println();

@@ -261,13 +261,7 @@ public class GameExecution {
 
 		Set<Card> availableCards = getAvailableCards();
 
-		Card randomCard = PokerUtils.random(availableCards);
-
-		if (!_availableCards.contains(randomCard)) {
-			throw new RuntimeException("The card is not available");
-		}
-
-		availableCards.remove(randomCard);
+		Card randomCard = PokerUtils.randomCard(availableCards);
 
 		return randomCard;
 	}

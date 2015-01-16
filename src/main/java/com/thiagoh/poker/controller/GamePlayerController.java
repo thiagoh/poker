@@ -2,6 +2,8 @@ package com.thiagoh.poker.controller;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.thiagoh.poker.PortalException;
 import com.thiagoh.poker.SystemException;
 import com.thiagoh.poker.execution.GamePlayerState;
@@ -9,6 +11,7 @@ import com.thiagoh.poker.model.Card;
 import com.thiagoh.poker.model.GamePlayer;
 import com.thiagoh.poker.model.Player;
 
+@Service
 public class GamePlayerController extends BaseController {
 
 	public GamePlayer add(long playerId, String face1, String suit1, String face2, String suit2, GamePlayerState state)

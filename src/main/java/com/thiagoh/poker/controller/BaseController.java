@@ -1,16 +1,18 @@
 package com.thiagoh.poker.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.thiagoh.poker.PortalException;
 import com.thiagoh.poker.SystemException;
-import com.thiagoh.poker.dao.util.CardDao;
-import com.thiagoh.poker.dao.util.GameDao;
-import com.thiagoh.poker.dao.util.GamePlayerDao;
-import com.thiagoh.poker.dao.util.PlayerDao;
+import com.thiagoh.poker.dao.CardDao;
+import com.thiagoh.poker.dao.GameDao;
+import com.thiagoh.poker.dao.GamePlayerDao;
+import com.thiagoh.poker.dao.PlayerDao;
 
+@Service
 @Transactional(rollbackFor = { PortalException.class, SystemException.class }, propagation = Propagation.SUPPORTS)
 public abstract class BaseController {
 
@@ -25,10 +27,4 @@ public abstract class BaseController {
 	
 	@Autowired
 	protected GamePlayerDao gamePlayerDao;
-	
-	@Autowired
-	protected GamePlayerController gamePlayerController;
-	
-	@Autowired
-	protected GameController gameController;
 }

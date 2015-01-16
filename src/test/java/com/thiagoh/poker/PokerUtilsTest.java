@@ -28,7 +28,7 @@ public class PokerUtilsTest {
 
 		while (!pack.isEmpty()) {
 
-			Card card = PokerUtils.random(pack);
+			Card card = PokerUtils.randomCard(pack);
 
 			Assert.assertNotNull(card);
 			Assert.assertNotNull(card.getFace());

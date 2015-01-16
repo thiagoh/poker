@@ -1,13 +1,15 @@
-package com.thiagoh.poker.dao.util;
+package com.thiagoh.poker.dao;
 
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
 import com.thiagoh.poker.SystemException;
 import com.thiagoh.poker.model.GamePlayer;
 
+@Repository
 public class GamePlayerDao extends BaseDao<GamePlayer> {
 
 	@Override

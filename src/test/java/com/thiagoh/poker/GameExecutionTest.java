@@ -13,7 +13,7 @@ import com.thiagoh.poker.execution.GamePlayer;
 import com.thiagoh.poker.execution.Player;
 import com.thiagoh.poker.execution.TableCardsState;
 
-public class GameTest {
+public class GameExecutionTest {
 
 	@Test
 	public void testGame1() {

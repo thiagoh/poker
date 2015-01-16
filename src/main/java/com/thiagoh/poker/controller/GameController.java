@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.thiagoh.poker.PortalException;
 import com.thiagoh.poker.SystemException;
 import com.thiagoh.poker.execution.GameState;
@@ -13,7 +16,11 @@ import com.thiagoh.poker.model.Game;
 import com.thiagoh.poker.model.GamePlayer;
 import com.thiagoh.poker.model.GamePlayerForm;
 
+@Service
 public class GameController extends BaseController {
+
+	@Autowired
+	protected GamePlayerController gamePlayerController;
 
 	public Game add(String face1, String suit1, String face2, String suit2, String face3, String suit3, String face4,
 			String suit4, String face5, String suit5, GameState state, TableCardsState tableCardsState,
@@ -82,9 +89,9 @@ public class GameController extends BaseController {
 
 		return game;
 	}
-	
+
 	public Game get(long gameId) throws PortalException, SystemException {
-		
+
 		return gameDao.get(gameId);
 	}
 }
