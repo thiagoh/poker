@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 import com.thiagoh.poker.PortalException;
 import com.thiagoh.poker.SystemException;
 import com.thiagoh.poker.execution.GameState;
-import com.thiagoh.poker.execution.TableCardsState;
 import com.thiagoh.poker.model.Card;
+import com.thiagoh.poker.model.Face;
 import com.thiagoh.poker.model.Game;
 import com.thiagoh.poker.model.GamePlayer;
 import com.thiagoh.poker.model.GamePlayerForm;
+import com.thiagoh.poker.model.Suit;
+import com.thiagoh.poker.model.TableCardsState;
 
 @Service
 public class GameController extends BaseController {
@@ -25,24 +27,24 @@ public class GameController extends BaseController {
 	@Autowired
 	protected CardController cardController;
 
-	public Game add(String face1, String suit1, String face2, String suit2, String face3, String suit3, String face4,
-			String suit4, String face5, String suit5, GameState state, TableCardsState tableCardsState,
+	public Game add(Face face1, Suit suit1, Face face2, Suit suit2, Face face3,
+			Suit suit3, Face face4, Suit suit4, Face face5, Suit suit5, GameState state, TableCardsState tableCardsState,
 			List<GamePlayerForm> gamePlayerForms) throws PortalException, SystemException {
 
 		return save(true, 0L, face1, suit1, face2, suit2, face3, suit3, face4, suit4, face5, suit5, state,
 				tableCardsState, gamePlayerForms);
 	}
 
-	public Game update(long gameId, String face1, String suit1, String face2, String suit2, String face3, String suit3,
-			String face4, String suit4, String face5, String suit5, GameState state, TableCardsState tableCardsState,
+	public Game update(long gameId, Face face1, Suit suit1, Face face2, Suit suit2, Face face3,
+			Suit suit3, Face face4, Suit suit4, Face face5, Suit suit5, GameState state, TableCardsState tableCardsState,
 			List<GamePlayerForm> gamePlayerForms) throws PortalException, SystemException {
 
 		return save(false, gameId, face1, suit1, face2, suit2, face3, suit3, face4, suit4, face5, suit5, state,
 				tableCardsState, gamePlayerForms);
 	}
 
-	private Game save(boolean isNew, long gameId, String face1, String suit1, String face2, String suit2, String face3,
-			String suit3, String face4, String suit4, String face5, String suit5, GameState state,
+	private Game save(boolean isNew, long gameId, Face face1, Suit suit1, Face face2, Suit suit2, Face face3,
+			Suit suit3, Face face4, Suit suit4, Face face5, Suit suit5, GameState state,
 			TableCardsState tableCardsState, List<GamePlayerForm> gamePlayerForms) throws PortalException,
 			SystemException {
 
@@ -69,8 +71,8 @@ public class GameController extends BaseController {
 		game.setTableCard4(tableCard4);
 		game.setTableCard5(tableCard5);
 
-		game.setState(state.toString());
-		game.setTableCardsState(tableCardsState.toString());
+		game.setState(state);
+		game.setTableCardsState(tableCardsState);
 
 		Set<GamePlayer> gamePlayers = new HashSet<GamePlayer>();
 

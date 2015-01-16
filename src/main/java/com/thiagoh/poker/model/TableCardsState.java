@@ -1,4 +1,4 @@
-package com.thiagoh.poker.execution;
+package com.thiagoh.poker.model;
 
 public enum TableCardsState {
 

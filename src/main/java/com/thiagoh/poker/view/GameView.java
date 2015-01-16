@@ -19,9 +19,11 @@ import com.thiagoh.poker.PortalException;
 import com.thiagoh.poker.SystemException;
 import com.thiagoh.poker.controller.GameController;
 import com.thiagoh.poker.execution.GameState;
-import com.thiagoh.poker.execution.TableCardsState;
+import com.thiagoh.poker.model.Face;
 import com.thiagoh.poker.model.Game;
 import com.thiagoh.poker.model.GamePlayerForm;
+import com.thiagoh.poker.model.Suit;
+import com.thiagoh.poker.model.TableCardsState;
 
 @Controller
 @RequestMapping(value = { "/game" })
@@ -56,11 +58,11 @@ public class GameView extends BaseView {
 	@Transactional(propagation = Propagation.REQUIRED)
 	@RequestMapping(value = { "/add" }, method = RequestMethod.POST)
 	@ResponseBody
-	public String add(@RequestParam("face1") String face1, @RequestParam("suit1") String suit1,
-			@RequestParam("face2") String face2, @RequestParam("suit2") String suit2,
-			@RequestParam("face3") String face3, @RequestParam("suit3") String suit3,
-			@RequestParam("face4") String face4, @RequestParam("suit4") String suit4,
-			@RequestParam("face5") String face5, @RequestParam("suit5") String suit5,
+	public String add(@RequestParam("face1") String face1Param, @RequestParam("suit1") String suit1Param,
+			@RequestParam("face2") String face2Param, @RequestParam("suit2") String suit2Param,
+			@RequestParam("face3") String face3Param, @RequestParam("suit3") String suit3Param,
+			@RequestParam("face4") String face4Param, @RequestParam("suit4") String suit4Param,
+			@RequestParam("face5") String face5Param, @RequestParam("suit5") String suit5Param,
 			@RequestParam("state") String stateParam, @RequestParam("tableCardsState") String tableCardsStateParam,
 			Model model) {
 
@@ -71,6 +73,17 @@ public class GameView extends BaseView {
 			TableCardsState tableCardsState = TableCardsState.valueOf(tableCardsStateParam);
 
 			List<GamePlayerForm> gamePlayerForms = new ArrayList<GamePlayerForm>();
+
+			Face face1 = Face.valueOf(face1Param);
+			Suit suit1 = Suit.valueOf(suit1Param);
+			Face face2 = Face.valueOf(face2Param);
+			Suit suit2 = Suit.valueOf(suit2Param);
+			Face face3 = Face.valueOf(face3Param);
+			Suit suit3 = Suit.valueOf(suit3Param);
+			Face face4 = Face.valueOf(face4Param);
+			Suit suit4 = Suit.valueOf(suit4Param);
+			Face face5 = Face.valueOf(face5Param);
+			Suit suit5 = Suit.valueOf(suit5Param);
 
 			Game game = gameController.add(face1, suit1, face2, suit2, face3, suit3, face4, suit4, face5, suit5,
 					gameState, tableCardsState, gamePlayerForms);

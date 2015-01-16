@@ -11,7 +11,7 @@ import com.thiagoh.poker.execution.Card;
 import com.thiagoh.poker.execution.GameExecution;
 import com.thiagoh.poker.execution.GamePlayer;
 import com.thiagoh.poker.execution.Player;
-import com.thiagoh.poker.execution.TableCardsState;
+import com.thiagoh.poker.model.TableCardsState;
 
 public class GameExecutionTest {
 

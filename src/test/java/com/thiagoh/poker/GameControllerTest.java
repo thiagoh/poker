@@ -13,16 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.thiagoh.poker.controller.CardController;
 import com.thiagoh.poker.controller.GameController;
 import com.thiagoh.poker.controller.PlayerController;
 import com.thiagoh.poker.execution.Card;
-import com.thiagoh.poker.execution.GamePlayerState;
 import com.thiagoh.poker.execution.GameState;
 import com.thiagoh.poker.execution.Hand;
-import com.thiagoh.poker.execution.TableCardsState;
 import com.thiagoh.poker.model.Game;
 import com.thiagoh.poker.model.GamePlayerForm;
+import com.thiagoh.poker.model.GamePlayerState;
 import com.thiagoh.poker.model.Player;
+import com.thiagoh.poker.model.TableCardsState;
 import com.thiagoh.poker.util.PokerUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,6 +35,9 @@ public class GameControllerTest {
 
 	@Autowired
 	protected PlayerController playerController;
+
+	@Autowired
+	protected CardController cardController;
 
 	@Autowired
 	protected GameController gameController;
@@ -106,10 +110,10 @@ public class GameControllerTest {
 
 			GamePlayerForm gpf1 = new GamePlayerForm();
 
-			gpf1.setFace1(randomHand1.getCard1().getFace().toString());
-			gpf1.setSuit1(randomHand1.getCard1().getSuit().toString());
-			gpf1.setFace2(randomHand1.getCard2().getFace().toString());
-			gpf1.setSuit2(randomHand1.getCard2().getSuit().toString());
+			gpf1.setFace1(randomHand1.getCard1().getFace());
+			gpf1.setSuit1(randomHand1.getCard1().getSuit());
+			gpf1.setFace2(randomHand1.getCard2().getFace());
+			gpf1.setSuit2(randomHand1.getCard2().getSuit());
 
 			String p1name = "carlos kami";
 			String p1email = "carlos@thiagoh.com";
@@ -125,10 +129,10 @@ public class GameControllerTest {
 
 			GamePlayerForm gpf2 = new GamePlayerForm();
 
-			gpf2.setFace1(randomHand2.getCard1().getFace().toString());
-			gpf2.setSuit1(randomHand2.getCard1().getSuit().toString());
-			gpf2.setFace2(randomHand2.getCard2().getFace().toString());
-			gpf2.setSuit2(randomHand2.getCard2().getSuit().toString());
+			gpf2.setFace1(randomHand2.getCard1().getFace());
+			gpf2.setSuit1(randomHand2.getCard1().getSuit());
+			gpf2.setFace2(randomHand2.getCard2().getFace());
+			gpf2.setSuit2(randomHand2.getCard2().getSuit());
 
 			String p2name = "joao grandao";
 			String p2email = "ygor@thiagoh.com";
@@ -143,10 +147,24 @@ public class GameControllerTest {
 			gamePlayerForms.add(gpf1);
 			gamePlayerForms.add(gpf2);
 
-			Game game = gameController.add(card1.getFace().toString(), card1.getSuit().toString(), card2.getFace()
-					.toString(), card2.getSuit().toString(), card3.getFace().toString(), card3.getSuit().toString(),
-					card4.getFace().toString(), card4.getSuit().toString(), card5.getFace().toString(), card5.getSuit()
-							.toString(), state, tableCardsState, gamePlayerForms);
+			Game game = gameController.add(card1.getFace(), card1.getSuit(), card2.getFace(), card2.getSuit(),
+					card3.getFace(), card3.getSuit(), card4.getFace(), card4.getSuit(), card5.getFace(),
+					card5.getSuit(), state, tableCardsState, gamePlayerForms);
+
+			Assert.assertEquals(game.getState(), state);
+			Assert.assertEquals(game.getTableCardsState(), tableCardsState);
+
+			com.thiagoh.poker.model.Card modelCard1 = cardController.get(card1.getFace(), card1.getSuit());
+			com.thiagoh.poker.model.Card modelCard2 = cardController.get(card2.getFace(), card2.getSuit());
+			com.thiagoh.poker.model.Card modelCard3 = cardController.get(card3.getFace(), card3.getSuit());
+			com.thiagoh.poker.model.Card modelCard4 = cardController.get(card4.getFace(), card4.getSuit());
+			com.thiagoh.poker.model.Card modelCard5 = cardController.get(card5.getFace(), card5.getSuit());
+
+			Assert.assertEquals(game.getTableCard1(), modelCard1);
+			Assert.assertEquals(game.getTableCard2(), modelCard2);
+			Assert.assertEquals(game.getTableCard3(), modelCard3);
+			Assert.assertEquals(game.getTableCard4(), modelCard4);
+			Assert.assertEquals(game.getTableCard5(), modelCard5);
 
 		} catch (Exception e) {
 			e.printStackTrace();

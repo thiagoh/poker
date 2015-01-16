@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.thiagoh.poker.model.Game;
+import com.thiagoh.poker.model.TableCardsState;
 import com.thiagoh.poker.util.PokerUtils;
 
 public class GameExecution {
@@ -51,11 +52,11 @@ public class GameExecution {
 		com.thiagoh.poker.model.Card tc4 = game.getTableCard4();
 		com.thiagoh.poker.model.Card tc5 = game.getTableCard5();
 
-		Card tableCard1 = new Card(Face.valueOf(tc1.getFace()), Suit.valueOf(tc1.getSuit()));
-		Card tableCard2 = new Card(Face.valueOf(tc2.getFace()), Suit.valueOf(tc2.getSuit()));
-		Card tableCard3 = new Card(Face.valueOf(tc3.getFace()), Suit.valueOf(tc3.getSuit()));
-		Card tableCard4 = new Card(Face.valueOf(tc4.getFace()), Suit.valueOf(tc4.getSuit()));
-		Card tableCard5 = new Card(Face.valueOf(tc5.getFace()), Suit.valueOf(tc5.getSuit()));
+		Card tableCard1 = new Card(tc1.getFace(), tc1.getSuit());
+		Card tableCard2 = new Card(tc2.getFace(), tc2.getSuit());
+		Card tableCard3 = new Card(tc3.getFace(), tc3.getSuit());
+		Card tableCard4 = new Card(tc4.getFace(), tc4.getSuit());
+		Card tableCard5 = new Card(tc5.getFace(), tc5.getSuit());
 
 		gameExecutor._tableCards = new Card[5];
 		gameExecutor._tableCards[0] = tableCard1;
@@ -77,8 +78,8 @@ public class GameExecution {
 			com.thiagoh.poker.model.Card modelCard1 = modelGamePlayer.getCard1();
 			com.thiagoh.poker.model.Card modelCard2 = modelGamePlayer.getCard2();
 
-			Card card1 = new Card(Face.valueOf(modelCard1.getFace()), Suit.valueOf(modelCard1.getSuit()));
-			Card card2 = new Card(Face.valueOf(modelCard2.getFace()), Suit.valueOf(modelCard2.getSuit()));
+			Card card1 = new Card(modelCard1.getFace(), modelCard1.getSuit());
+			Card card2 = new Card(modelCard2.getFace(), modelCard2.getSuit());
 
 			Hand hand = new Hand(card1, card2);
 
@@ -91,8 +92,8 @@ public class GameExecution {
 			gameExecutor._availableCards.remove(hand.getCard2());
 		}
 
-		gameExecutor._state = GameState.valueOf(game.getState());
-		gameExecutor._tableCardsState = TableCardsState.valueOf(game.getTableCardsState());
+		gameExecutor._state = game.getState();
+		gameExecutor._tableCardsState = game.getTableCardsState();
 
 		gameExecutor._game = game;
 

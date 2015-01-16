@@ -1,5 +1,7 @@
 package com.thiagoh.poker.execution;
 
+import com.thiagoh.poker.model.GamePlayerState;
+
 public class GamePlayer {
 
 	private Player player;

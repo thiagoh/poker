@@ -1,24 +1,12 @@
 package com.thiagoh.poker.execution;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.thiagoh.poker.model.Face;
+import com.thiagoh.poker.model.Suit;
 
-@Entity
-@Table(name = "card")
 public class Card {
-
-	@Id
-	@GeneratedValue
-	private Long id;
 
 	private Face face;
 	private Suit suit;
-
-	public Card() {
-
-	}
 
 	public Card(Face face, Suit suit) {
 

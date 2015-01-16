@@ -6,9 +6,9 @@ import java.util.Random;
 import java.util.Set;
 
 import com.thiagoh.poker.execution.Card;
-import com.thiagoh.poker.execution.Face;
 import com.thiagoh.poker.execution.Hand;
-import com.thiagoh.poker.execution.Suit;
+import com.thiagoh.poker.model.Face;
+import com.thiagoh.poker.model.Suit;
 
 public class PokerUtils {
 

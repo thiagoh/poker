@@ -1,16 +1,15 @@
 package com.thiagoh.poker.model;
 
-import com.thiagoh.poker.execution.GamePlayerState;
 
 public class GamePlayerForm {
 
 	private long playerId;
 
-	private String face1;
-	private String suit1;
+	private Face face1;
+	private Suit suit1;
 
-	private String face2;
-	private String suit2;
+	private Face face2;
+	private Suit suit2;
 
 	private GamePlayerState state;
 
@@ -26,35 +25,35 @@ public class GamePlayerForm {
 		this.playerId = playerId;
 	}
 
-	public String getFace1() {
+	public Face getFace1() {
 		return face1;
 	}
 
-	public void setFace1(String face1) {
+	public void setFace1(Face face1) {
 		this.face1 = face1;
 	}
 
-	public String getSuit1() {
+	public Suit getSuit1() {
 		return suit1;
 	}
 
-	public void setSuit1(String suit1) {
+	public void setSuit1(Suit suit1) {
 		this.suit1 = suit1;
 	}
 
-	public String getFace2() {
+	public Face getFace2() {
 		return face2;
 	}
 
-	public void setFace2(String face2) {
+	public void setFace2(Face face2) {
 		this.face2 = face2;
 	}
 
-	public String getSuit2() {
+	public Suit getSuit2() {
 		return suit2;
 	}
 
-	public void setSuit2(String suit2) {
+	public void setSuit2(Suit suit2) {
 		this.suit2 = suit2;
 	}
 

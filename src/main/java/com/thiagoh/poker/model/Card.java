@@ -1,7 +1,8 @@
 package com.thiagoh.poker.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,40 +14,38 @@ public class Card extends BaseModel {
 	@Id
 	@GeneratedValue
 	private Long id;
-
-	@Column(name = "face")
-	private String face;
-
-	@Column(name = "suit")
-	private String suit;
+	@Enumerated(EnumType.STRING)
+	private Face face;
+	@Enumerated(EnumType.STRING)
+	private Suit suit;
 
 	public Card() {
 
 	}
 
-	public Card(String face, String suit) {
+	public Card(Face face, Suit suit) {
 
 		super();
 		this.face = face;
 		this.suit = suit;
 	}
 
-	public String getFace() {
+	public Face getFace() {
 
 		return face;
 	}
 
-	public void setFace(String face) {
+	public void setFace(Face face) {
 
 		this.face = face;
 	}
 
-	public String getSuit() {
+	public Suit getSuit() {
 
 		return suit;
 	}
 
-	public void setSuit(String suit) {
+	public void setSuit(Suit suit) {
 
 		this.suit = suit;
 	}
@@ -61,17 +60,14 @@ public class Card extends BaseModel {
 
 	@Override
 	public int hashCode() {
-
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((suit == null) ? 0 : suit.hashCode());
-		result = prime * result + ((face == null) ? 0 : face.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -79,9 +75,10 @@ public class Card extends BaseModel {
 		if (getClass() != obj.getClass())
 			return false;
 		Card other = (Card) obj;
-		if (suit != other.suit)
-			return false;
-		if (face != other.face)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}

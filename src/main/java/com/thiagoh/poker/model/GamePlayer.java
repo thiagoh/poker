@@ -1,6 +1,8 @@
 package com.thiagoh.poker.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -31,7 +33,8 @@ public class GamePlayer extends BaseModel {
 	@JoinColumn(name = "cardId2")
 	private Card card2;
 
-	private String state;
+	@Enumerated(EnumType.STRING)
+	private GamePlayerState state;
 
 	public GamePlayer() {
 
@@ -87,12 +90,12 @@ public class GamePlayer extends BaseModel {
 		this.game = game;
 	}
 
-	public String getState() {
+	public GamePlayerState getState() {
 
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(GamePlayerState state) {
 
 		this.state = state;
 	}

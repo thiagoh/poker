@@ -3,12 +3,16 @@ package com.thiagoh.poker.model;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.thiagoh.poker.execution.GameState;
 
 @Entity
 @Table(name = "game")
@@ -36,9 +40,10 @@ public class Game extends BaseModel {
 	@ManyToOne
 	@JoinColumn(name = "tableCardId5")
 	private Card tableCard5;
-
-	private String state;
-	private String tableCardsState;
+	@Enumerated(EnumType.STRING)
+	private GameState state;
+	@Enumerated(EnumType.STRING)
+	private TableCardsState tableCardsState;
 
 	public Game() {
 
@@ -114,22 +119,22 @@ public class Game extends BaseModel {
 		this.tableCard5 = tableCard5;
 	}
 
-	public String getState() {
+	public GameState getState() {
 
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(GameState state) {
 
 		this.state = state;
 	}
 
-	public String getTableCardsState() {
+	public TableCardsState getTableCardsState() {
 
 		return tableCardsState;
 	}
 
-	public void setTableCardsState(String tableCardsState) {
+	public void setTableCardsState(TableCardsState tableCardsState) {
 
 		this.tableCardsState = tableCardsState;
 	}
@@ -159,5 +164,4 @@ public class Game extends BaseModel {
 		return true;
 	}
 
-	
 }
