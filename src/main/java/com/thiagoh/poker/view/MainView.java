@@ -1,4 +1,4 @@
-package com.thiagoh.poker.controller;
+package com.thiagoh.poker.view;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value = { "/main" })
-public class MainController {
+public class MainView {
 
-	private final static org.slf4j.Logger log = LoggerFactory.getLogger(MainController.class);
+	private final static org.slf4j.Logger log = LoggerFactory.getLogger(MainView.class);
 
 	private final static String MAPPING_PREFIX = "main/";
 

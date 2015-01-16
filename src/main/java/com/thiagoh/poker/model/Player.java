@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "player")
-public class Player {
+public class Player extends BaseModel {
 
 	@Id
 	@GeneratedValue

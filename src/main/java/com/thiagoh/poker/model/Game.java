@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "game")
-public class Game {
+public class Game extends BaseModel {
 
 	@Id
 	@GeneratedValue

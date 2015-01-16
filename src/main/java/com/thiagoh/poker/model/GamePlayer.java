@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "game_player")
-public class GamePlayer {
+public class GamePlayer extends BaseModel {
 
 	@Id
 	@GeneratedValue
@@ -20,7 +20,7 @@ public class GamePlayer {
 	private Player player;
 
 	@ManyToOne
-	@JoinColumn(name = "gameModelId")
+	@JoinColumn(name = "gameId")
 	private Game game;
 
 	@ManyToOne
@@ -31,7 +31,6 @@ public class GamePlayer {
 	@JoinColumn(name = "cardId1")
 	private Card card2;
 
-	private boolean hasCards;
 	private String state;
 
 	public GamePlayer() {
@@ -86,16 +85,6 @@ public class GamePlayer {
 	public void setGame(Game game) {
 
 		this.game = game;
-	}
-
-	public boolean isHasCards() {
-
-		return hasCards;
-	}
-
-	public void setHasCards(boolean hasCards) {
-
-		this.hasCards = hasCards;
 	}
 
 	public String getState() {
