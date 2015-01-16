@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.thiagoh.poker.controller.GameController;
 import com.thiagoh.poker.execution.Card;
+import com.thiagoh.poker.execution.GamePlayerState;
 import com.thiagoh.poker.execution.GameState;
 import com.thiagoh.poker.execution.Hand;
 import com.thiagoh.poker.execution.TableCardsState;
@@ -55,9 +56,11 @@ public class GameControllerTest {
 			
 			gpf1.setFace1(randomHand1.getCard1().getFace().toString());
 			gpf1.setSuit1(randomHand1.getCard1().getSuit().toString());
-			
 			gpf1.setFace2(randomHand1.getCard2().getFace().toString());
 			gpf1.setSuit2(randomHand1.getCard2().getSuit().toString());
+			
+			gpf1.setPlayerId(playerId);
+			gpf1.setState(GamePlayerState.GAMING);
 			
 			Hand randomHand2 = PokerUtils.randomHand(availableCards);
 			
@@ -65,9 +68,11 @@ public class GameControllerTest {
 			
 			gpf2.setFace1(randomHand2.getCard1().getFace().toString());
 			gpf2.setSuit1(randomHand2.getCard1().getSuit().toString());
-			
 			gpf2.setFace2(randomHand2.getCard2().getFace().toString());
 			gpf2.setSuit2(randomHand2.getCard2().getSuit().toString());
+			
+			gpf2.setPlayerId(playerId);
+			gpf2.setState(GamePlayerState.GAMING);
 			
 			gamePlayerForms.add(gpf1);
 			gamePlayerForms.add(gpf2);
@@ -78,6 +83,7 @@ public class GameControllerTest {
 							.toString(), state, tableCardsState, gamePlayerForms);
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
 

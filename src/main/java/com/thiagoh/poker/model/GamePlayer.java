@@ -28,7 +28,7 @@ public class GamePlayer extends BaseModel {
 	private Card card1;
 
 	@ManyToOne
-	@JoinColumn(name = "cardId1")
+	@JoinColumn(name = "cardId2")
 	private Card card2;
 
 	private String state;

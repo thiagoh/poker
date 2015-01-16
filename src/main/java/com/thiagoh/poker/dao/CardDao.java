@@ -3,6 +3,7 @@ package com.thiagoh.poker.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -32,8 +33,8 @@ public class CardDao extends BaseDao<Card> {
 
 				String simpleName = getClazz().getSimpleName();
 
-				Class<? extends PortalException> clazz = (Class<? extends PortalException>) Class.forName("NoSuch"
-						+ simpleName + "Exception");
+				Class<? extends PortalException> clazz = (Class<? extends PortalException>) Class
+						.forName("com.thiagoh.poker.NoSuch" + simpleName + "Exception");
 
 				String message = "No such " + simpleName + " with face = " + face + " and suit = " + suit;
 
@@ -58,15 +59,16 @@ public class CardDao extends BaseDao<Card> {
 
 			session = openSession();
 
-			Criteria criteria = session.createCriteria(Card.class);
+			Query query = session.createQuery("FROM " + Card.class.getName()
+					+ " c WHERE c.face = :face AND c.suit = :suit ");
 
-			criteria.add(Restrictions.eq("face", face));
-			criteria.add(Restrictions.eq("suit", suit));
+			query.setString("face", face);
+			query.setString("suit", suit);
 
-			criteria.setMaxResults(1);
+			query.setMaxResults(1);
 
 			@SuppressWarnings("unchecked")
-			List<Card> list = criteria.list();
+			List<Card> list = query.list();
 
 			if (list.isEmpty()) {
 				return null;

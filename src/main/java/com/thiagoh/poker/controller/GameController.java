@@ -21,6 +21,9 @@ public class GameController extends BaseController {
 
 	@Autowired
 	protected GamePlayerController gamePlayerController;
+	
+	@Autowired
+	protected CardController cardController;
 
 	public Game add(String face1, String suit1, String face2, String suit2, String face3, String suit3, String face4,
 			String suit4, String face5, String suit5, GameState state, TableCardsState tableCardsState,
@@ -49,18 +52,17 @@ public class GameController extends BaseController {
 
 			game = gameDao.create();
 
-			gameId = game.getId();
 
 		} else {
 
 			game = gameDao.get(gameId);
 		}
 
-		Card tableCard1 = cardDao.get(face1, suit1);
-		Card tableCard2 = cardDao.get(face2, suit2);
-		Card tableCard3 = cardDao.get(face3, suit3);
-		Card tableCard4 = cardDao.get(face4, suit4);
-		Card tableCard5 = cardDao.get(face5, suit5);
+		Card tableCard1 = cardController.get(face1, suit1);
+		Card tableCard2 = cardController.get(face2, suit2);
+		Card tableCard3 = cardController.get(face3, suit3);
+		Card tableCard4 = cardController.get(face4, suit4);
+		Card tableCard5 = cardController.get(face5, suit5);
 
 		game.setTableCard1(tableCard1);
 		game.setTableCard2(tableCard2);
@@ -73,7 +75,9 @@ public class GameController extends BaseController {
 
 		Set<GamePlayer> gamePlayers = new HashSet<GamePlayer>();
 
-		gamePlayerController.deleteByGameId(gameId);
+		if (!game.isNew()){
+			gamePlayerController.deleteByGameId(gameId);
+		}
 
 		for (GamePlayerForm form : gamePlayerForms) {
 

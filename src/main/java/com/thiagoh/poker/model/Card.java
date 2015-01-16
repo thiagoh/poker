@@ -1,19 +1,23 @@
 package com.thiagoh.poker.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "card")
+@Table(name = "card_")
 public class Card extends BaseModel {
 
 	@Id
 	@GeneratedValue
 	private Long id;
 
+	@Column(name="face")
 	private String face;
+	
+	@Column(name="suit")
 	private String suit;
 
 	public Card() {

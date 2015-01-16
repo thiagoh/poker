@@ -25,7 +25,7 @@ public class GamePlayerDao extends BaseDao<GamePlayer> {
 
 			session = openSession();
 
-			Query query = session.createQuery("select gp from " + GamePlayer.class.getName() + " where gp.gameId = ?");
+			Query query = session.createQuery("select gp from " + GamePlayer.class.getName() + " gp where gp.gameId = ?");
 
 			query.setLong(1, gameId);
 
