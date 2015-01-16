@@ -37,7 +37,8 @@ public class GameControllerTest {
 
 	@Autowired
 	protected GameController gameController;
-	
+
+	private List<Player> players;
 
 	@Before
 	public void setup() {
@@ -65,12 +66,27 @@ public class GameControllerTest {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
+
+		if (players == null) {
+			players = new ArrayList<Player>();
+		} else {
+
+			for (Player player : players) {
+
+				try {
+
+					playerController.delete(player);
+
+				} catch (SystemException e) {
+					e.printStackTrace();
+					Assert.fail(e.getMessage());
+				}
+			}
+		}
 	}
 
 	@Test
 	public void testGame1() {
-
-		System.out.println();
 
 		Set<Card> availableCards = PokerUtils.getPack();
 
@@ -100,6 +116,8 @@ public class GameControllerTest {
 
 			Player player1 = playerController.add(p1name, p1email);
 
+			players.add(player1);
+
 			gpf1.setPlayerId(player1.getId());
 			gpf1.setState(GamePlayerState.GAMING);
 
@@ -116,6 +134,8 @@ public class GameControllerTest {
 			String p2email = "ygor@thiagoh.com";
 
 			Player player2 = playerController.add(p2name, p2email);
+
+			players.add(player2);
 
 			gpf2.setPlayerId(player2.getId());
 			gpf2.setState(GamePlayerState.GAMING);
