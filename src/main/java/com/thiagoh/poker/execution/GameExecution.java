@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.thiagoh.poker.model.Game;
-import com.thiagoh.poker.model.Player;
 import com.thiagoh.poker.util.PokerUtils;
 
 public class GameExecution {
@@ -72,10 +71,14 @@ public class GameExecution {
 
 		for (com.thiagoh.poker.model.GamePlayer modelGamePlayer : gamePlayers) {
 
-			Player player = modelGamePlayer.getPlayer();
+			com.thiagoh.poker.model.Player modelPlayer = modelGamePlayer.getPlayer();
 
-			Card card1 = new Card(Face.valueOf(modelGamePlayer.getCardFace1()), Suit.valueOf(modelGamePlayer.getCardSuit1()));
-			Card card2 = new Card(Face.valueOf(modelGamePlayer.getCardFace2()), Suit.valueOf(modelGamePlayer.getCardSuit2()));
+			Player player = new Player(modelPlayer.getName(), modelPlayer.getEmail());
+			com.thiagoh.poker.model.Card modelCard1 = modelGamePlayer.getCard1();
+			com.thiagoh.poker.model.Card modelCard2 = modelGamePlayer.getCard2();
+
+			Card card1 = new Card(Face.valueOf(modelCard1.getFace()), Suit.valueOf(modelCard1.getSuit()));
+			Card card2 = new Card(Face.valueOf(modelCard2.getFace()), Suit.valueOf(modelCard2.getSuit()));
 
 			Hand hand = new Hand(card1, card2);
 

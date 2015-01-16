@@ -5,6 +5,8 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,10 +21,20 @@ public class Game {
 	@OneToMany(mappedBy = "game")
 	private Set<GamePlayer> gamePlayers;
 
+	@ManyToOne
+	@JoinColumn(name = "tableCardId1")
 	private Card tableCard1;
+	@ManyToOne
+	@JoinColumn(name = "tableCardId2")
 	private Card tableCard2;
+	@ManyToOne
+	@JoinColumn(name = "tableCardId3")
 	private Card tableCard3;
+	@ManyToOne
+	@JoinColumn(name = "tableCardId4")
 	private Card tableCard4;
+	@ManyToOne
+	@JoinColumn(name = "tableCardId5")
 	private Card tableCard5;
 
 	private String state;

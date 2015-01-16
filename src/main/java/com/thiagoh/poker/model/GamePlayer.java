@@ -23,11 +23,13 @@ public class GamePlayer {
 	@JoinColumn(name = "gameModelId")
 	private Game game;
 
-	private String cardFace1;
-	private String cardSuit1;
+	@ManyToOne
+	@JoinColumn(name = "cardId1")
+	private Card card1;
 
-	private String cardFace2;
-	private String cardSuit2;
+	@ManyToOne
+	@JoinColumn(name = "cardId1")
+	private Card card2;
 
 	private boolean hasCards;
 	private String state;
@@ -46,44 +48,24 @@ public class GamePlayer {
 		this.id = id;
 	}
 
-	public String getCardFace1() {
+	public Card getCard1() {
 
-		return cardFace1;
+		return card1;
 	}
 
-	public void setCardFace1(String cardFace1) {
+	public void setCard1(Card card1) {
 
-		this.cardFace1 = cardFace1;
+		this.card1 = card1;
 	}
 
-	public String getCardSuit1() {
+	public Card getCard2() {
 
-		return cardSuit1;
+		return card2;
 	}
 
-	public void setCardSuit1(String cardSuit1) {
+	public void setCard2(Card card2) {
 
-		this.cardSuit1 = cardSuit1;
-	}
-
-	public String getCardFace2() {
-
-		return cardFace2;
-	}
-
-	public void setCardFace2(String cardFace2) {
-
-		this.cardFace2 = cardFace2;
-	}
-
-	public String getCardSuit2() {
-
-		return cardSuit2;
-	}
-
-	public void setCardSuit2(String cardSuit2) {
-
-		this.cardSuit2 = cardSuit2;
+		this.card2 = card2;
 	}
 
 	public Player getPlayer() {

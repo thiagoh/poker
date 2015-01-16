@@ -1,7 +1,5 @@
 package com.thiagoh.poker.execution;
 
-import com.thiagoh.poker.model.Player;
-
 public class GamePlayer {
 
 	private Player player;
