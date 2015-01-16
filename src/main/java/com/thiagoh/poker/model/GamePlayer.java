@@ -112,7 +112,7 @@ public class GamePlayer {
 	@Override
 	public String toString() {
 
-		return "GamePlayer [" + player + " with " + hand + "]";
+		return player + " with " + hand;
 	}
 
 }

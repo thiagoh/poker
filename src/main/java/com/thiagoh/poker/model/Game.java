@@ -217,16 +217,20 @@ public class Game {
 
 			_flop();
 
+			return getFlop();
+
 		} else if (_tableCardsState == TableCardsState.FLOP) {
 
 			_turn();
+			return new Card[] { getTurn() };
 
 		} else if (_tableCardsState == TableCardsState.TURN) {
 
 			_river();
+			return new Card[] { getRiver() };
 		}
 
-		return _tableCards;
+		throw new RuntimeException("This step is not valid");
 	}
 
 	public TableCardsState getTableCardsState() {
