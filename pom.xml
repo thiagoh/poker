@@ -118,10 +118,10 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
+				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
+					<outputDirectory>E:/dev/github/poker/apache-tomcat-7.0.57/webapps/</outputDirectory>
+					<webappDirectory>E:/dev/github/poker/apache-tomcat-7.0.57/webapps/ROOT/</webappDirectory>
 				</configuration>
 			</plugin>
 			<!-- Eclipse project -->
@@ -132,7 +132,7 @@
 				<configuration>
 					<!-- Always download and attach dependencies source code -->
 					<downloadSources>true</downloadSources>
-					<downloadJavadocs>false</downloadJavadocs>
+					<downloadJavadocs>true</downloadJavadocs>
 					<!-- Avoid type mvn eclipse:eclipse -Dwtpversion=2.0 -->
 					<wtpversion>2.0</wtpversion>
 				</configuration>

@@ -15,10 +15,10 @@ import com.thiagoh.poker.model.Player;
 import com.thiagoh.poker.service.PlayerService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-// ApplicationContext will be loaded from "/applicationContext.xml" and
-// "/applicationContext-test.xml"
+// ApplicationContext will be loaded from "/spring-defs.xml" and
+// "/spring-defs-test.xml"
 // in the root of the classpath
-@ContextConfiguration(locations = { "/applicationContext.xml" })
+@ContextConfiguration(locations = { "/spring-defs.xml" })
 public class PlayerServiceTest {
 
 	@Autowired

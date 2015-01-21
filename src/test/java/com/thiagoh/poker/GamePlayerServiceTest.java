@@ -14,25 +14,19 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.thiagoh.poker.execution.Card;
-import com.thiagoh.poker.execution.GameState;
-import com.thiagoh.poker.execution.Hand;
-import com.thiagoh.poker.model.Game;
 import com.thiagoh.poker.model.GamePlayer;
-import com.thiagoh.poker.model.GamePlayerForm;
 import com.thiagoh.poker.model.GamePlayerState;
 import com.thiagoh.poker.model.Player;
-import com.thiagoh.poker.model.TableCardsState;
 import com.thiagoh.poker.service.CardService;
 import com.thiagoh.poker.service.GamePlayerService;
-import com.thiagoh.poker.service.GameService;
 import com.thiagoh.poker.service.PlayerService;
 import com.thiagoh.poker.util.PokerUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-// ApplicationContext will be loaded from "/applicationContext.xml" and
-// "/applicationContext-test.xml"
+// ApplicationContext will be loaded from "/spring-defs.xml" and
+// "/spring-defs-test.xml"
 // in the root of the classpath
-@ContextConfiguration(locations = { "/applicationContext.xml" })
+@ContextConfiguration(locations = { "/spring-defs.xml" })
 public class GamePlayerServiceTest {
 
 	@Autowired
@@ -110,8 +104,8 @@ public class GamePlayerServiceTest {
 
 			players.add(player1);
 
-			GamePlayer gamePlayer = gamePlayerController.add(player1.getId(), card1.getFace(), card1.getSuit(),
-					card2.getFace(), card2.getSuit(), state);
+			GamePlayer gamePlayer = gamePlayerController.add(player1.getId(), card1.getFace(), card1.getSuit(), card2.getFace(),
+					card2.getSuit(), state);
 
 			Assert.assertEquals(gamePlayer.getState(), state);
 			Assert.assertEquals(gamePlayer.getPlayer(), player1);
@@ -149,8 +143,8 @@ public class GamePlayerServiceTest {
 
 			try {
 
-				GamePlayer gamePlayer = gamePlayerController.add(player1.getId(), null, card1.getSuit(),
-						card2.getFace(), card2.getSuit(), state);
+				GamePlayer gamePlayer = gamePlayerController.add(player1.getId(), null, card1.getSuit(), card2.getFace(), card2.getSuit(),
+						state);
 
 				Assert.fail("Cannot be here");
 
@@ -159,8 +153,8 @@ public class GamePlayerServiceTest {
 
 			try {
 
-				GamePlayer gamePlayer = gamePlayerController.add(player1.getId(), card1.getFace(), null,
-						card2.getFace(), card2.getSuit(), state);
+				GamePlayer gamePlayer = gamePlayerController.add(player1.getId(), card1.getFace(), null, card2.getFace(), card2.getSuit(),
+						state);
 
 				Assert.fail("Cannot be here");
 
@@ -169,8 +163,8 @@ public class GamePlayerServiceTest {
 
 			try {
 
-				GamePlayer gamePlayer = gamePlayerController.add(player1.getId(), card1.getFace(), card1.getSuit(),
-						null, card2.getSuit(), state);
+				GamePlayer gamePlayer = gamePlayerController.add(player1.getId(), card1.getFace(), card1.getSuit(), null, card2.getSuit(),
+						state);
 
 				Assert.fail("Cannot be here");
 
@@ -179,8 +173,8 @@ public class GamePlayerServiceTest {
 
 			try {
 
-				GamePlayer gamePlayer = gamePlayerController.add(player1.getId(), card1.getFace(), card1.getSuit(),
-						card2.getFace(), null, state);
+				GamePlayer gamePlayer = gamePlayerController.add(player1.getId(), card1.getFace(), card1.getSuit(), card2.getFace(), null,
+						state);
 
 				Assert.fail("Cannot be here");
 
@@ -189,8 +183,8 @@ public class GamePlayerServiceTest {
 
 			try {
 
-				GamePlayer gamePlayer = gamePlayerController.add(player1.getId(), card1.getFace(), card1.getSuit(),
-						card1.getFace(), card1.getSuit(), state);
+				GamePlayer gamePlayer = gamePlayerController.add(player1.getId(), card1.getFace(), card1.getSuit(), card1.getFace(),
+						card1.getSuit(), state);
 
 				Assert.fail("Cannot be here");
 
@@ -222,16 +216,16 @@ public class GamePlayerServiceTest {
 
 			players.add(player1);
 
-			GamePlayer gamePlayer1 = gamePlayerController.add(player1.getId(), card1.getFace(), card1.getSuit(),
-					card2.getFace(), card2.getSuit(), state1);
+			GamePlayer gamePlayer1 = gamePlayerController.add(player1.getId(), card1.getFace(), card1.getSuit(), card2.getFace(),
+					card2.getSuit(), state1);
 
 			GamePlayerState state2 = GamePlayerState.GAMING;
 
 			Card card3 = PokerUtils.randomCard(availableCards);
 			Card card4 = PokerUtils.randomCard(availableCards);
 
-			GamePlayer gamePlayer2 = gamePlayerController.update(gamePlayer1.getId(), card3.getFace(), card3.getSuit(),
-					card4.getFace(), card4.getSuit(), state2);
+			GamePlayer gamePlayer2 = gamePlayerController.update(gamePlayer1.getId(), card3.getFace(), card3.getSuit(), card4.getFace(),
+					card4.getSuit(), state2);
 
 			Assert.assertEquals(gamePlayer2.getState(), state2);
 			Assert.assertEquals(gamePlayer2.getPlayer(), player1);

@@ -31,8 +31,8 @@ public class GameController extends BaseController {
 
 	private final static org.slf4j.Logger log = LoggerFactory.getLogger(GameController.class);
 
-	@Autowired
-	protected GameService gameService;
+	// @Autowired
+	// protected GameService gameService;
 
 	private final static String MAPPING_PREFIX = "game/";
 
@@ -64,35 +64,36 @@ public class GameController extends BaseController {
 			@RequestParam("face5") String face5Param, @RequestParam("suit5") String suit5Param, @RequestParam("state") String stateParam,
 			@RequestParam("tableCardsState") String tableCardsStateParam, Model model) {
 
-		try {
-
-			GameState gameState = GameState.valueOf(stateParam);
-
-			TableCardsState tableCardsState = TableCardsState.valueOf(tableCardsStateParam);
-
-			List<GamePlayerForm> gamePlayerForms = new ArrayList<GamePlayerForm>();
-
-			Face face1 = Face.valueOf(face1Param);
-			Suit suit1 = Suit.valueOf(suit1Param);
-			Face face2 = Face.valueOf(face2Param);
-			Suit suit2 = Suit.valueOf(suit2Param);
-			Face face3 = Face.valueOf(face3Param);
-			Suit suit3 = Suit.valueOf(suit3Param);
-			Face face4 = Face.valueOf(face4Param);
-			Suit suit4 = Suit.valueOf(suit4Param);
-			Face face5 = Face.valueOf(face5Param);
-			Suit suit5 = Suit.valueOf(suit5Param);
-
-			Game game = gameService.add(face1, suit1, face2, suit2, face3, suit3, face4, suit4, face5, suit5, gameState, tableCardsState,
-					gamePlayerForms);
-
-			return _view(game.getId(), model);
-
-		} catch (PortalException e) {
-			log.error(e.getMessage(), e);
-		} catch (SystemException e) {
-			log.error(e.getMessage(), e);
-		}
+		// try {
+		//
+		// GameState gameState = GameState.valueOf(stateParam);
+		//
+		// TableCardsState tableCardsState = TableCardsState.valueOf(tableCardsStateParam);
+		//
+		// List<GamePlayerForm> gamePlayerForms = new ArrayList<GamePlayerForm>();
+		//
+		// Face face1 = Face.valueOf(face1Param);
+		// Suit suit1 = Suit.valueOf(suit1Param);
+		// Face face2 = Face.valueOf(face2Param);
+		// Suit suit2 = Suit.valueOf(suit2Param);
+		// Face face3 = Face.valueOf(face3Param);
+		// Suit suit3 = Suit.valueOf(suit3Param);
+		// Face face4 = Face.valueOf(face4Param);
+		// Suit suit4 = Suit.valueOf(suit4Param);
+		// Face face5 = Face.valueOf(face5Param);
+		// Suit suit5 = Suit.valueOf(suit5Param);
+		//
+		// Game game = gameService.add(face1, suit1, face2, suit2, face3, suit3, face4, suit4, face5, suit5, gameState,
+		// tableCardsState,
+		// gamePlayerForms);
+		//
+		// return _view(game.getId(), model);
+		//
+		// } catch (PortalException e) {
+		// log.error(e.getMessage(), e);
+		// } catch (SystemException e) {
+		// log.error(e.getMessage(), e);
+		// }
 
 		return _error(model);
 	}
@@ -104,15 +105,15 @@ public class GameController extends BaseController {
 
 	private String _view(long gameId, Model model) throws SystemException {
 
-		try {
-
-			Game game = gameService.get(gameId);
-
-			model.addAttribute("game", game);
-
-		} catch (PortalException e) {
-			log.error(e.getMessage(), e);
-		}
+		// try {
+		//
+		// Game game = gameService.get(gameId);
+		//
+		// model.addAttribute("game", game);
+		//
+		// } catch (PortalException e) {
+		// log.error(e.getMessage(), e);
+		// }
 
 		return MAPPING_PREFIX + "view";
 	}
