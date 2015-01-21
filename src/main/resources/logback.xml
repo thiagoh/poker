@@ -11,7 +11,11 @@
 		</layout>
 	</appender>
 
-	<logger name="com.thiagoh.controller" level="debug" additivity="false">
+	<logger name="com.thiagoh.poker.controller" level="debug" additivity="false">
+		<appender-ref ref="STDOUT" />
+	</logger>
+
+	<logger name="com.thiagoh.poker.service" level="debug" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 

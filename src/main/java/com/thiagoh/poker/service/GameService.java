@@ -22,10 +22,10 @@ import com.thiagoh.poker.model.TableCardsState;
 public class GameService extends BaseService {
 
 	@Autowired
-	protected GamePlayerService gamePlayerController;
+	protected GamePlayerService gamePlayerService;
 
 	@Autowired
-	protected CardService cardController;
+	protected CardService cardService;
 
 	public Game add(Face face1, Suit suit1, Face face2, Suit suit2, Face face3,
 			Suit suit3, Face face4, Suit suit4, Face face5, Suit suit5, GameState state, TableCardsState tableCardsState,
@@ -59,11 +59,11 @@ public class GameService extends BaseService {
 			game = gameDao.get(gameId);
 		}
 
-		Card tableCard1 = cardController.get(face1, suit1);
-		Card tableCard2 = cardController.get(face2, suit2);
-		Card tableCard3 = cardController.get(face3, suit3);
-		Card tableCard4 = cardController.get(face4, suit4);
-		Card tableCard5 = cardController.get(face5, suit5);
+		Card tableCard1 = cardService.get(face1, suit1);
+		Card tableCard2 = cardService.get(face2, suit2);
+		Card tableCard3 = cardService.get(face3, suit3);
+		Card tableCard4 = cardService.get(face4, suit4);
+		Card tableCard5 = cardService.get(face5, suit5);
 
 		game.setTableCard1(tableCard1);
 		game.setTableCard2(tableCard2);
@@ -77,12 +77,12 @@ public class GameService extends BaseService {
 		Set<GamePlayer> gamePlayers = new HashSet<GamePlayer>();
 
 		if (!game.isNew()) {
-			gamePlayerController.deleteByGameId(gameId);
+			gamePlayerService.deleteByGameId(gameId);
 		}
 
 		for (GamePlayerForm form : gamePlayerForms) {
 
-			GamePlayer gamePlayer = gamePlayerController.add(form.getPlayerId(), form.getFace1(), form.getSuit1(),
+			GamePlayer gamePlayer = gamePlayerService.add(form.getPlayerId(), form.getFace1(), form.getSuit1(),
 					form.getFace2(), form.getSuit2(), form.getState());
 
 			gamePlayers.add(gamePlayer);
@@ -111,7 +111,7 @@ public class GameService extends BaseService {
 		
 		for (GamePlayer gamePlayer : gamePlayers) {
 			
-			gamePlayerController.delete(gamePlayer);
+			gamePlayerService.delete(gamePlayer);
 		}
 	}
 

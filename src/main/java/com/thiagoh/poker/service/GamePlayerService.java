@@ -19,13 +19,13 @@ import com.thiagoh.poker.model.Suit;
 public class GamePlayerService extends BaseService {
 
 	@Autowired
-	protected GameService gameController;
+	protected GameService gameService;
 
 	@Autowired
-	protected PlayerService playerController;
+	protected PlayerService playerService;
 
 	@Autowired
-	protected CardService cardController;
+	protected CardService cardService;
 
 	public GamePlayer add(long playerId, Face face1, Suit suit1, Face face2, Suit suit2, GamePlayerState state)
 			throws SystemException, PortalException {
@@ -48,7 +48,7 @@ public class GamePlayerService extends BaseService {
 
 			gamePlayer = gamePlayerDao.create();
 
-			Player player = playerController.get(playerId);
+			Player player = playerService.get(playerId);
 
 			gamePlayer.setPlayer(player);
 
@@ -59,10 +59,10 @@ public class GamePlayerService extends BaseService {
 
 		validateData(face1, suit1, face2, suit2);
 
-		Card card1 = cardController.get(face1, suit1);
+		Card card1 = cardService.get(face1, suit1);
 		gamePlayer.setCard1(card1);
 
-		Card card2 = cardController.get(face2, suit2);
+		Card card2 = cardService.get(face2, suit2);
 		gamePlayer.setCard2(card2);
 
 		gamePlayer.setState(state);

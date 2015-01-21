@@ -32,7 +32,7 @@ public class GameController extends BaseController {
 	private final static org.slf4j.Logger log = LoggerFactory.getLogger(GameController.class);
 
 	@Autowired
-	protected GameService gameController;
+	protected GameService gameService;
 
 	private final static String MAPPING_PREFIX = "game/";
 
@@ -59,12 +59,10 @@ public class GameController extends BaseController {
 	@RequestMapping(value = { "/add" }, method = RequestMethod.POST)
 	@ResponseBody
 	public String add(@RequestParam("face1") String face1Param, @RequestParam("suit1") String suit1Param,
-			@RequestParam("face2") String face2Param, @RequestParam("suit2") String suit2Param,
-			@RequestParam("face3") String face3Param, @RequestParam("suit3") String suit3Param,
-			@RequestParam("face4") String face4Param, @RequestParam("suit4") String suit4Param,
-			@RequestParam("face5") String face5Param, @RequestParam("suit5") String suit5Param,
-			@RequestParam("state") String stateParam, @RequestParam("tableCardsState") String tableCardsStateParam,
-			Model model) {
+			@RequestParam("face2") String face2Param, @RequestParam("suit2") String suit2Param, @RequestParam("face3") String face3Param,
+			@RequestParam("suit3") String suit3Param, @RequestParam("face4") String face4Param, @RequestParam("suit4") String suit4Param,
+			@RequestParam("face5") String face5Param, @RequestParam("suit5") String suit5Param, @RequestParam("state") String stateParam,
+			@RequestParam("tableCardsState") String tableCardsStateParam, Model model) {
 
 		try {
 
@@ -85,8 +83,8 @@ public class GameController extends BaseController {
 			Face face5 = Face.valueOf(face5Param);
 			Suit suit5 = Suit.valueOf(suit5Param);
 
-			Game game = gameController.add(face1, suit1, face2, suit2, face3, suit3, face4, suit4, face5, suit5,
-					gameState, tableCardsState, gamePlayerForms);
+			Game game = gameService.add(face1, suit1, face2, suit2, face3, suit3, face4, suit4, face5, suit5, gameState, tableCardsState,
+					gamePlayerForms);
 
 			return _view(game.getId(), model);
 
@@ -108,7 +106,7 @@ public class GameController extends BaseController {
 
 		try {
 
-			Game game = gameController.get(gameId);
+			Game game = gameService.get(gameId);
 
 			model.addAttribute("game", game);
 

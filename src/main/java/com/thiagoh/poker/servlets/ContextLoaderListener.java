@@ -11,8 +11,9 @@ public class ContextLoaderListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 
-		ApplicationContext context = 
-	             new ClassPathXmlApplicationContext("applicationContext.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+
+		System.out.println("StartupDate: " + context.getStartupDate());
 	}
 
 	@Override
