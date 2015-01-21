@@ -1,4 +1,4 @@
-package com.thiagoh.poker.controller;
+package com.thiagoh.poker.service;
 
 import java.util.Date;
 
@@ -9,7 +9,7 @@ import com.thiagoh.poker.SystemException;
 import com.thiagoh.poker.model.Event;
 
 @Service
-public class EventController extends BaseController {
+public class EventService extends BaseService {
 
 	public Event add(String name, String description, Date date, double buyInPrice, int buyInChipCount)
 			throws SystemException, PortalException {

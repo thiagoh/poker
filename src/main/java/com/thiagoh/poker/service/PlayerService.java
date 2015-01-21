@@ -1,4 +1,4 @@
-package com.thiagoh.poker.controller;
+package com.thiagoh.poker.service;
 
 import java.util.List;
 
@@ -11,10 +11,10 @@ import com.thiagoh.poker.SystemException;
 import com.thiagoh.poker.model.Player;
 
 @Service
-public class PlayerController extends BaseController {
+public class PlayerService extends BaseService {
 
 	@Autowired
-	protected GamePlayerController gamePlayerController;
+	protected GamePlayerService gamePlayerController;
 
 	public Player add(String name, String email) throws PortalException, SystemException {
 

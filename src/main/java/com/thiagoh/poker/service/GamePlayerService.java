@@ -1,4 +1,4 @@
-package com.thiagoh.poker.controller;
+package com.thiagoh.poker.service;
 
 import java.util.List;
 
@@ -16,16 +16,16 @@ import com.thiagoh.poker.model.Player;
 import com.thiagoh.poker.model.Suit;
 
 @Service
-public class GamePlayerController extends BaseController {
+public class GamePlayerService extends BaseService {
 
 	@Autowired
-	protected GameController gameController;
+	protected GameService gameController;
 
 	@Autowired
-	protected PlayerController playerController;
+	protected PlayerService playerController;
 
 	@Autowired
-	protected CardController cardController;
+	protected CardService cardController;
 
 	public GamePlayer add(long playerId, Face face1, Suit suit1, Face face2, Suit suit2, GamePlayerState state)
 			throws SystemException, PortalException {

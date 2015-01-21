@@ -1,138 +1,122 @@
 package com.thiagoh.poker.controller;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.thiagoh.poker.PortalException;
 import com.thiagoh.poker.SystemException;
 import com.thiagoh.poker.execution.GameState;
-import com.thiagoh.poker.model.Card;
 import com.thiagoh.poker.model.Face;
 import com.thiagoh.poker.model.Game;
-import com.thiagoh.poker.model.GamePlayer;
 import com.thiagoh.poker.model.GamePlayerForm;
 import com.thiagoh.poker.model.Suit;
 import com.thiagoh.poker.model.TableCardsState;
+import com.thiagoh.poker.service.GameService;
 
-@Service
+@Controller
+@RequestMapping(value = { "/game" })
 public class GameController extends BaseController {
 
-	@Autowired
-	protected GamePlayerController gamePlayerController;
+	private final static org.slf4j.Logger log = LoggerFactory.getLogger(GameController.class);
 
 	@Autowired
-	protected CardController cardController;
+	protected GameService gameController;
 
-	public Game add(Face face1, Suit suit1, Face face2, Suit suit2, Face face3,
-			Suit suit3, Face face4, Suit suit4, Face face5, Suit suit5, GameState state, TableCardsState tableCardsState,
-			List<GamePlayerForm> gamePlayerForms) throws PortalException, SystemException {
+	private final static String MAPPING_PREFIX = "game/";
 
-		return save(true, 0L, face1, suit1, face2, suit2, face3, suit3, face4, suit4, face5, suit5, state,
-				tableCardsState, gamePlayerForms);
-	}
+	/*
+	 * http://docs.spring.io/spring/docs/current/spring-framework-reference/html/
+	 * mvc.html
+	 */
 
-	public Game update(long gameId, Face face1, Suit suit1, Face face2, Suit suit2, Face face3,
-			Suit suit3, Face face4, Suit suit4, Face face5, Suit suit5, GameState state, TableCardsState tableCardsState,
-			List<GamePlayerForm> gamePlayerForms) throws PortalException, SystemException {
+	@RequestMapping(value = { "/{gameId}" })
+	public String view(@PathVariable long gameId, Model model) {
 
-		return save(false, gameId, face1, suit1, face2, suit2, face3, suit3, face4, suit4, face5, suit5, state,
-				tableCardsState, gamePlayerForms);
-	}
+		try {
 
-	private Game save(boolean isNew, long gameId, Face face1, Suit suit1, Face face2, Suit suit2, Face face3,
-			Suit suit3, Face face4, Suit suit4, Face face5, Suit suit5, GameState state,
-			TableCardsState tableCardsState, List<GamePlayerForm> gamePlayerForms) throws PortalException,
-			SystemException {
+			return _view(gameId, model);
 
-		Game game = null;
-
-		if (isNew) {
-
-			game = gameDao.create();
-
-		} else {
-
-			game = gameDao.get(gameId);
+		} catch (SystemException e) {
+			log.error(e.getMessage(), e);
 		}
 
-		Card tableCard1 = cardController.get(face1, suit1);
-		Card tableCard2 = cardController.get(face2, suit2);
-		Card tableCard3 = cardController.get(face3, suit3);
-		Card tableCard4 = cardController.get(face4, suit4);
-		Card tableCard5 = cardController.get(face5, suit5);
+		return _error(model);
+	}
 
-		game.setTableCard1(tableCard1);
-		game.setTableCard2(tableCard2);
-		game.setTableCard3(tableCard3);
-		game.setTableCard4(tableCard4);
-		game.setTableCard5(tableCard5);
+	@Transactional(propagation = Propagation.REQUIRED)
+	@RequestMapping(value = { "/add" }, method = RequestMethod.POST)
+	@ResponseBody
+	public String add(@RequestParam("face1") String face1Param, @RequestParam("suit1") String suit1Param,
+			@RequestParam("face2") String face2Param, @RequestParam("suit2") String suit2Param,
+			@RequestParam("face3") String face3Param, @RequestParam("suit3") String suit3Param,
+			@RequestParam("face4") String face4Param, @RequestParam("suit4") String suit4Param,
+			@RequestParam("face5") String face5Param, @RequestParam("suit5") String suit5Param,
+			@RequestParam("state") String stateParam, @RequestParam("tableCardsState") String tableCardsStateParam,
+			Model model) {
 
-		game.setState(state);
-		game.setTableCardsState(tableCardsState);
+		try {
 
-		Set<GamePlayer> gamePlayers = new HashSet<GamePlayer>();
+			GameState gameState = GameState.valueOf(stateParam);
 
-		if (!game.isNew()) {
-			gamePlayerController.deleteByGameId(gameId);
+			TableCardsState tableCardsState = TableCardsState.valueOf(tableCardsStateParam);
+
+			List<GamePlayerForm> gamePlayerForms = new ArrayList<GamePlayerForm>();
+
+			Face face1 = Face.valueOf(face1Param);
+			Suit suit1 = Suit.valueOf(suit1Param);
+			Face face2 = Face.valueOf(face2Param);
+			Suit suit2 = Suit.valueOf(suit2Param);
+			Face face3 = Face.valueOf(face3Param);
+			Suit suit3 = Suit.valueOf(suit3Param);
+			Face face4 = Face.valueOf(face4Param);
+			Suit suit4 = Suit.valueOf(suit4Param);
+			Face face5 = Face.valueOf(face5Param);
+			Suit suit5 = Suit.valueOf(suit5Param);
+
+			Game game = gameController.add(face1, suit1, face2, suit2, face3, suit3, face4, suit4, face5, suit5,
+					gameState, tableCardsState, gamePlayerForms);
+
+			return _view(game.getId(), model);
+
+		} catch (PortalException e) {
+			log.error(e.getMessage(), e);
+		} catch (SystemException e) {
+			log.error(e.getMessage(), e);
 		}
 
-		for (GamePlayerForm form : gamePlayerForms) {
+		return _error(model);
+	}
 
-			GamePlayer gamePlayer = gamePlayerController.add(form.getPlayerId(), form.getFace1(), form.getSuit1(),
-					form.getFace2(), form.getSuit2(), form.getState());
+	private String _error(Model model) {
 
-			gamePlayers.add(gamePlayer);
+		return MAPPING_PREFIX + "error";
+	}
+
+	private String _view(long gameId, Model model) throws SystemException {
+
+		try {
+
+			Game game = gameController.get(gameId);
+
+			model.addAttribute("game", game);
+
+		} catch (PortalException e) {
+			log.error(e.getMessage(), e);
 		}
 
-		game.setGamePlayers(gamePlayers);
-
-		gameDao.save(game);
-
-		return game;
+		return MAPPING_PREFIX + "view";
 	}
 
-	public Game get(long gameId) throws PortalException, SystemException {
-
-		return gameDao.get(gameId);
-	}
-	
-	public Game fetch(long gameId) throws SystemException {
-		
-		return gameDao.fetch(gameId);
-	}
-
-	public void delete(Game game) throws SystemException {
-
-		List<GamePlayer> gamePlayers = gamePlayerDao.findByGameId(game.getId());
-		
-		for (GamePlayer gamePlayer : gamePlayers) {
-			
-			gamePlayerController.delete(gamePlayer);
-		}
-	}
-
-	public void delete(long gameId) throws SystemException {
-
-		Game game = gameDao.fetch(gameId);
-
-		if (game == null) {
-			return;
-		}
-
-		delete(game);
-	}
-
-	public List<Game> findAll() throws SystemException {
-
-		return gameDao.findAll();
-	}
-
-	public long countAll() throws SystemException {
-
-		return gameDao.countAll();
-	}
 }

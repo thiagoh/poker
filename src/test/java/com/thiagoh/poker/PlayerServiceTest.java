@@ -11,18 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.thiagoh.poker.controller.PlayerController;
 import com.thiagoh.poker.model.Player;
+import com.thiagoh.poker.service.PlayerService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 // ApplicationContext will be loaded from "/applicationContext.xml" and
 // "/applicationContext-test.xml"
 // in the root of the classpath
 @ContextConfiguration(locations = { "/applicationContext.xml" })
-public class PlayerControllerTest {
+public class PlayerServiceTest {
 
 	@Autowired
-	protected PlayerController playerController;
+	protected PlayerService playerController;
 
 	@Before
 	public void setup() {

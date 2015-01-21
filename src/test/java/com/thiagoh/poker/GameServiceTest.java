@@ -13,9 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.thiagoh.poker.controller.CardController;
-import com.thiagoh.poker.controller.GameController;
-import com.thiagoh.poker.controller.PlayerController;
 import com.thiagoh.poker.execution.Card;
 import com.thiagoh.poker.execution.GameState;
 import com.thiagoh.poker.execution.Hand;
@@ -24,6 +21,9 @@ import com.thiagoh.poker.model.GamePlayerForm;
 import com.thiagoh.poker.model.GamePlayerState;
 import com.thiagoh.poker.model.Player;
 import com.thiagoh.poker.model.TableCardsState;
+import com.thiagoh.poker.service.CardService;
+import com.thiagoh.poker.service.GameService;
+import com.thiagoh.poker.service.PlayerService;
 import com.thiagoh.poker.util.PokerUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,16 +31,16 @@ import com.thiagoh.poker.util.PokerUtils;
 // "/applicationContext-test.xml"
 // in the root of the classpath
 @ContextConfiguration(locations = { "/applicationContext.xml" })
-public class GameControllerTest {
+public class GameServiceTest {
 
 	@Autowired
-	protected PlayerController playerController;
+	protected PlayerService playerController;
 
 	@Autowired
-	protected CardController cardController;
+	protected CardService cardController;
 
 	@Autowired
-	protected GameController gameController;
+	protected GameService gameController;
 
 	private List<Player> players;
 

@@ -1,4 +1,4 @@
-package com.thiagoh.poker.controller;
+package com.thiagoh.poker.service;
 
 import org.springframework.stereotype.Service;
 
@@ -8,7 +8,7 @@ import com.thiagoh.poker.model.Face;
 import com.thiagoh.poker.model.Suit;
 
 @Service
-public class CardController extends BaseController {
+public class CardService extends BaseService {
 
 	public Card get(Face face, Suit suit) throws SystemException {
 
